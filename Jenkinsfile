@@ -15,7 +15,7 @@ pipeline {
             steps{
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                sh "docker push rjthapaa/django:latest"
+                sh "docker push rjthapaa/django-app:latest"
                 }
             }
         }
