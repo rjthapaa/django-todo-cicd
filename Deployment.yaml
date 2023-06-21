@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: djangodeployment
+spec:
+  replicas: 4
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: djangoimage
+  template:
+    metadata:
+      name: djangoimage
+      labels:
+        app: djangoimage
+    spec:
+      containers:
+      - name: djangocontainer
+        image: rjthapaa/djangoimage
+        ports:
+          - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reactdjangosvc
+spec:
+  type: NodePort
+  selector:
+    app: djangoimage
+  ports:
+    - port: 80
+      targetPort: 8000
+...
